@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbETicaretModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="AdminAd" />
+          </Key>
+          <Property Name="AdminAd" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AdminSifre" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategorilers">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAd" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Musterilers">
+          <Key>
+            <PropertyRef Name="MusteriId" />
+          </Key>
+          <Property Name="MusteriId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriAd" Type="nvarchar(max)" />
+          <Property Name="MusteriSoyad" Type="nvarchar(max)" />
+          <Property Name="MusteriEmail" Type="nvarchar(max)" />
+          <Property Name="MusteriTelefon" Type="nvarchar(max)" />
+          <Property Name="MusteriSifre" Type="int" Nullable="false" />
+          <Property Name="Urunler_UrunId" Type="int" />
+        </EntityType>
+        <EntityType Name="Siparislers">
+          <Key>
+            <PropertyRef Name="SiparisId" />
+          </Key>
+          <Property Name="SiparisId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparisTarih" Type="datetime" Nullable="false" />
+          <Property Name="SiparisToplamFiyat" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Urunler_UrunId" Type="int" />
+          <Property Name="MusteriId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Urunlers">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAd" Type="nvarchar(max)" />
+          <Property Name="UrunMarka" Type="nvarchar(max)" />
+          <Property Name="UrunStok" Type="int" Nullable="false" />
+          <Property Name="UrunKategori" Type="nvarchar(max)" />
+          <Property Name="UrunFiyat" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Kategori_KategoriId" Type="int" />
+        </EntityType>
+        <Association Name="FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="0..1" />
+          <End Role="Musterilers" Type="Self.Musterilers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Musterilers">
+              <PropertyRef Name="Urunler_UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="0..1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="Urunler_UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId">
+          <End Role="Kategorilers" Type="Self.Kategorilers" Multiplicity="0..1" />
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorilers">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Urunlers">
+              <PropertyRef Name="Kategori_KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparislers_Musterilers">
+          <End Role="Musterilers" Type="Self.Musterilers" Multiplicity="1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Musterilers">
+              <PropertyRef Name="MusteriId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparislers_Urunlers">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparislers_Urunlers1">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbETicaretModelStoreContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategorilers" EntityType="Self.Kategorilers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musterilers" EntityType="Self.Musterilers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Siparislers" EntityType="Self.Siparislers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunlers" EntityType="Self.Urunlers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId" Association="Self.FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Musterilers" EntitySet="Musterilers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId" Association="Self.FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId" Association="Self.FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId">
+            <End Role="Kategorilers" EntitySet="Kategorilers" />
+            <End Role="Urunlers" EntitySet="Urunlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparislers_Musterilers" Association="Self.FK_Siparislers_Musterilers">
+            <End Role="Musterilers" EntitySet="Musterilers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparislers_Urunlers" Association="Self.FK_Siparislers_Urunlers">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparislers_Urunlers1" Association="Self.FK_Siparislers_Urunlers1">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbETicaretModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategorilers">
+          <Key>
+            <PropertyRef Name="KategoriId" />
+          </Key>
+          <Property Name="KategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Urunlers" Relationship="Self.FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId" FromRole="Kategorilers" ToRole="Urunlers" />
+        </EntityType>
+        <EntityType Name="Musterilers">
+          <Key>
+            <PropertyRef Name="MusteriId" />
+          </Key>
+          <Property Name="MusteriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriSoyad" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriTelefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriSifre" Type="Int32" Nullable="false" />
+          <Property Name="Urunler_UrunId" Type="Int32" />
+          <NavigationProperty Name="Urunlers" Relationship="Self.FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId" FromRole="Musterilers" ToRole="Urunlers" />
+          <NavigationProperty Name="Siparislers" Relationship="Self.FK_Siparislers_Musterilers" FromRole="Musterilers" ToRole="Siparislers" />
+        </EntityType>
+        <EntityType Name="Siparislers">
+          <Key>
+            <PropertyRef Name="SiparisId" />
+          </Key>
+          <Property Name="SiparisId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparisTarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SiparisToplamFiyat" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Urunler_UrunId" Type="Int32" />
+          <NavigationProperty Name="Musterilers" Relationship="Self.FK_Siparislers_Musterilers" FromRole="Siparislers" ToRole="Musterilers" />
+          <NavigationProperty Name="Urunlers" Relationship="Self.FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId" FromRole="Siparislers" ToRole="Urunlers" />
+          <NavigationProperty Name="Urunlers1" Relationship="Self.FK_Siparislers_Urunlers" FromRole="Siparislers" ToRole="Urunlers" />
+          <Property Name="MusteriId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Urunlers">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunMarka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunStok" Type="Int32" Nullable="false" />
+          <Property Name="UrunKategori" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunFiyat" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Kategori_KategoriId" Type="Int32" />
+          <NavigationProperty Name="Kategorilers" Relationship="Self.FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId" FromRole="Urunlers" ToRole="Kategorilers" />
+          <NavigationProperty Name="Musterilers" Relationship="Self.FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId" FromRole="Urunlers" ToRole="Musterilers" />
+          <NavigationProperty Name="Siparislers" Relationship="Self.FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId" FromRole="Urunlers" ToRole="Siparislers" />
+          <NavigationProperty Name="Siparislers1" Relationship="Self.FK_Siparislers_Urunlers" FromRole="Urunlers" ToRole="Siparislers" />
+        </EntityType>
+        <Association Name="FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId">
+          <End Role="Kategorilers" Type="Self.Kategorilers" Multiplicity="0..1" />
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorilers">
+              <PropertyRef Name="KategoriId" />
+            </Principal>
+            <Dependent Role="Urunlers">
+              <PropertyRef Name="Kategori_KategoriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="0..1" />
+          <End Role="Musterilers" Type="Self.Musterilers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Musterilers">
+              <PropertyRef Name="Urunler_UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparislers_Musterilers">
+          <End Role="Musterilers" Type="Self.Musterilers" Multiplicity="1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Musterilers">
+              <PropertyRef Name="MusteriId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="0..1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="Urunler_UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Siparislers_Urunlers">
+          <End Role="Urunlers" Type="Self.Urunlers" Multiplicity="1" />
+          <End Role="Siparislers" Type="Self.Siparislers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Urunlers">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="Siparislers">
+              <PropertyRef Name="SiparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbETicaretEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategorilers" EntityType="Self.Kategorilers" />
+          <EntitySet Name="Musterilers" EntityType="Self.Musterilers" />
+          <EntitySet Name="Siparislers" EntityType="Self.Siparislers" />
+          <EntitySet Name="Urunlers" EntityType="Self.Urunlers" />
+          <AssociationSet Name="FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId" Association="Self.FK_dbo_Urunlers_dbo_Kategorilers_Kategori_KategoriId">
+            <End Role="Kategorilers" EntitySet="Kategorilers" />
+            <End Role="Urunlers" EntitySet="Urunlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId" Association="Self.FK_dbo_Musterilers_dbo_Urunlers_Urunler_UrunId">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Musterilers" EntitySet="Musterilers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparislers_Musterilers" Association="Self.FK_Siparislers_Musterilers">
+            <End Role="Musterilers" EntitySet="Musterilers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId" Association="Self.FK_dbo_Siparislers_dbo_Urunlers_Urunler_UrunId">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Siparislers_Urunlers" Association="Self.FK_Siparislers_Urunlers">
+            <End Role="Urunlers" EntitySet="Urunlers" />
+            <End Role="Siparislers" EntitySet="Siparislers" />
+          </AssociationSet>
+          <EntitySet Name="Admins" EntityType="DbETicaretModel.Admins" />
+        </EntityContainer>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="AdminAd" />
+          </Key>
+          <Property Name="AdminAd" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AdminSifre" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbETicaretModelStoreContainer" CdmEntityContainer="DbETicaretEntities">
+          <EntitySetMapping Name="Kategorilers">
+            <EntityTypeMapping TypeName="DbETicaretModel.Kategorilers">
+              <MappingFragment StoreEntitySet="Kategorilers">
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="KategoriAd" ColumnName="KategoriAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musterilers">
+            <EntityTypeMapping TypeName="DbETicaretModel.Musterilers">
+              <MappingFragment StoreEntitySet="Musterilers">
+                <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+                <ScalarProperty Name="MusteriAd" ColumnName="MusteriAd" />
+                <ScalarProperty Name="MusteriSoyad" ColumnName="MusteriSoyad" />
+                <ScalarProperty Name="MusteriEmail" ColumnName="MusteriEmail" />
+                <ScalarProperty Name="MusteriTelefon" ColumnName="MusteriTelefon" />
+                <ScalarProperty Name="MusteriSifre" ColumnName="MusteriSifre" />
+                <ScalarProperty Name="Urunler_UrunId" ColumnName="Urunler_UrunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Siparislers">
+            <EntityTypeMapping TypeName="DbETicaretModel.Siparislers">
+              <MappingFragment StoreEntitySet="Siparislers">
+                <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+                <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+                <ScalarProperty Name="SiparisTarih" ColumnName="SiparisTarih" />
+                <ScalarProperty Name="SiparisToplamFiyat" ColumnName="SiparisToplamFiyat" />
+                <ScalarProperty Name="Urunler_UrunId" ColumnName="Urunler_UrunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunlers">
+            <EntityTypeMapping TypeName="DbETicaretModel.Urunlers">
+              <MappingFragment StoreEntitySet="Urunlers">
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+                <ScalarProperty Name="UrunMarka" ColumnName="UrunMarka" />
+                <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
+                <ScalarProperty Name="UrunKategori" ColumnName="UrunKategori" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="Kategori_KategoriId" ColumnName="Kategori_KategoriId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="DbETicaretModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
+                <ScalarProperty Name="AdminAd" ColumnName="AdminAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

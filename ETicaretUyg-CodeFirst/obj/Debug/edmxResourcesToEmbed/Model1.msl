@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbETicaretModelStoreContainer" CdmEntityContainer="DbETicaretEntities">
+    <EntitySetMapping Name="Kategorilers">
+      <EntityTypeMapping TypeName="DbETicaretModel.Kategorilers">
+        <MappingFragment StoreEntitySet="Kategorilers">
+          <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+          <ScalarProperty Name="KategoriAd" ColumnName="KategoriAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Musterilers">
+      <EntityTypeMapping TypeName="DbETicaretModel.Musterilers">
+        <MappingFragment StoreEntitySet="Musterilers">
+          <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+          <ScalarProperty Name="MusteriAd" ColumnName="MusteriAd" />
+          <ScalarProperty Name="MusteriSoyad" ColumnName="MusteriSoyad" />
+          <ScalarProperty Name="MusteriEmail" ColumnName="MusteriEmail" />
+          <ScalarProperty Name="MusteriTelefon" ColumnName="MusteriTelefon" />
+          <ScalarProperty Name="MusteriSifre" ColumnName="MusteriSifre" />
+          <ScalarProperty Name="Urunler_UrunId" ColumnName="Urunler_UrunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Siparislers">
+      <EntityTypeMapping TypeName="DbETicaretModel.Siparislers">
+        <MappingFragment StoreEntitySet="Siparislers">
+          <ScalarProperty Name="MusteriId" ColumnName="MusteriId" />
+          <ScalarProperty Name="SiparisId" ColumnName="SiparisId" />
+          <ScalarProperty Name="SiparisTarih" ColumnName="SiparisTarih" />
+          <ScalarProperty Name="SiparisToplamFiyat" ColumnName="SiparisToplamFiyat" />
+          <ScalarProperty Name="Urunler_UrunId" ColumnName="Urunler_UrunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urunlers">
+      <EntityTypeMapping TypeName="DbETicaretModel.Urunlers">
+        <MappingFragment StoreEntitySet="Urunlers">
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+          <ScalarProperty Name="UrunMarka" ColumnName="UrunMarka" />
+          <ScalarProperty Name="UrunStok" ColumnName="UrunStok" />
+          <ScalarProperty Name="UrunKategori" ColumnName="UrunKategori" />
+          <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+          <ScalarProperty Name="Kategori_KategoriId" ColumnName="Kategori_KategoriId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="DbETicaretModel.Admins">
+        <MappingFragment StoreEntitySet="Admins">
+          <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
+          <ScalarProperty Name="AdminAd" ColumnName="AdminAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
